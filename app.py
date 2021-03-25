@@ -46,4 +46,4 @@ def answers():
 
 
 
-app.run(port=5001)
+app.run()
