@@ -21,11 +21,11 @@
         <header>
             <a href="/login" id="login">Play</a>
         </header>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FFF" fill-opacity="1" d="M0,128L34.3,144C68.6,160,137,192,206,197.3C274.3,203,343,181,411,160C480,139,549,117,617,101.3C685.7,85,754,75,823,85.3C891.4,96,960,128,1029,154.7C1097.1,181,1166,203,1234,208C1302.9,213,1371,203,1406,197.3L1440,192L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
-        <div style="position: absolute; top: 650px; background-color: white; height: 500px; width: 100vw;"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#100404" fill-opacity="1" d="M0,128L34.3,144C68.6,160,137,192,206,197.3C274.3,203,343,181,411,160C480,139,549,117,617,101.3C685.7,85,754,75,823,85.3C891.4,96,960,128,1029,154.7C1097.1,181,1166,203,1234,208C1302.9,213,1371,203,1406,197.3L1440,192L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+        <div style="position: absolute; top: 650px; background-color: #100404; height: 500px; width: 100vw;"></div>
         <form id="settings" onsubmit="location.replace(`/host?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`); return false">
             <div id="title">
-                Host a game of <div style="color: #E98686; display: inline;">All</div> <div style="color: #F9B4ED; display: inline;">Wrong</div> <div style="color: #BBBFBE; display: inline;">Answers!</div>
+                Host a game of All Wrong Answers!
             </div>
             <div class="line">
                 <div>
@@ -65,7 +65,7 @@
                     </select>
                 </div>
             </div>
-            <button type="submit">Create Game</button>
+            <button type="submit" id="create">Create Game</button>
         </form>
     </body>
 </html>

@@ -1,4 +1,4 @@
-body {display: flex; flex-direction: column; margin: 0 !important; background: #e8ebea}
+body {display: flex; flex-direction: column; margin: 0 !important; background: #353838}
 
 html {overflow: hidden}
 
@@ -7,12 +7,12 @@ a, div {color: #100404; text-decoration: none;}
 header {
     height: 100px;
     padding-top: 22px;
-    background-color: #ADFFF1;
+    background-color: #266e6e;
     width: 100vw;
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
-    box-shadow: 1px 1px 10px #8e9190}
+    box-shadow: 1px 1px 10px black}
 
 header a {
     font: 500 20px Montserrat;
@@ -21,44 +21,40 @@ header a {
     height: 38px;
     width: 110px;
     text-align: center;
-    padding-top: 14px;
+    padding-top: 16px;
 }
 
-#login {background: #F9B4ED; border-bottom: 5px solid #805478}
+#login {background: #ADFFF1; border-bottom: 5px solid #88baba; color: #100404}
 
-#login:hover {border-bottom: 3px solid #805478; margin-top: 3px;}
+#login:hover {border-bottom: 3px solid #88baba; margin-top: 3px;}
 
 #settings {
     width: max(40vw, 500px);
     height: max(30vw, 375px);
-    background: white;
-    margin: 60px 0 0 30vw;
+    background: #353838;
+    margin: 50px 0 0 30vw;
     border-radius: 9px;
     padding: 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border: 7px solid white;
-    border-top-color: #BBBFBE;
-    border-left-color: #ADFFF1;
-    border-right-color: #F9B4ED;
-    border-bottom-color: #100404;
+    border: 7px solid #266e6e;
     font: 500 14px Montserrat;
 }
 
-#title {font: 700 28px Montserrat; text-align: center;}
+#title {font: 700 28px Montserrat; text-align: center; color: white}
 
 .line {text-align: center; margin-top: 10%; display: flex; flex-direction: column}
 
 .line div {display: flex; justify-content: center; border-radius: 6px; margin-bottom: 15px}
 
-.line div:nth-child(1) {background: #ADFFF1}
+.line div {background: #e8ebea}
 
-.line div:nth-child(2) {background: #F9B4ED}
-
-.line div:nth-child(3) {background: #E98686}
+.line div:hover {background: #ADFFF1}
 
 .line div select {border: none; margin-left: 15px; margin-top: 18px; height: 30px; background: none;}
+
+.line div select:hover {cursor: pointer}
 
 .line div p {font: 500 20px Roboto}
 
@@ -67,3 +63,16 @@ header a {
 }
 
 svg {z-index: -1; position: absolute; top: 300px}
+
+#create {
+    width: 40%;
+    height: 20%;
+    border: none;
+    border-radius: 5px;
+    margin: 15px 0 0 30%;
+    background: #ADFFF1;
+    font: 60 22px Roboto;
+    border-bottom: 5px solid #88baba;
+}
+
+#create:hover {cursor: pointer; border-bottom: 3px solid #88baba}
