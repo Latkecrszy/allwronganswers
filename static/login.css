@@ -1,0 +1,48 @@
+#login {
+    width: 550px;
+    height: 450px;
+    background: #ddd;
+    margin: 50px 0 0 30vw;
+    border-radius: 9px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font: 500 14px Montserrat;
+    box-shadow: 6px 6px 16px 0 rgba(0, 0, 0, 0.25)
+}
+
+#gsignin *{
+	overflow: visible;
+	border-radius: 3px;
+	color: white;
+	font-size: 17px
+}
+
+#gsignin {
+    margin: 20px 0 0 25%;
+}
+
+#email, #password {
+    height: 15%;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#email::placeholder, #password::placeholder {
+    font: 500 14px Montserrat
+}
+
+#title {font: 700 24px Montserrat; text-align: center; color: black; margin-top: -5px}
+
+#submit {
+    border: none;
+    margin: 0 30px;
+    text-align: center;
+    height: 65px;
+    width: 145px;
+    font: 500 18px Montserrat;
+    margin-left: 37%;
+}

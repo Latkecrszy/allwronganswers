@@ -1,0 +1,36 @@
+body {display: flex; flex-direction: column; margin: 0 !important; background: #F1F1F1}
+
+a, div, p {color: #100404; text-decoration: none;}
+
+a, button {cursor: pointer}
+
+header {
+    height: 100px;
+    padding-top: 22px;
+    background: #F1F1F1;
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2)}
+
+header a {
+    font: 500 20px Montserrat;
+    margin: 0 30px;
+    height: 38px;
+    padding: 16px 15px 0 15px;
+    text-align: center;
+}
+
+header p {font: 600 20px Montserrat}
+
+.button {
+    background: #ADFFF1;
+    border-bottom: 5px solid #88baba !important;
+    color: #100404;
+    border-radius: 8px;
+}
+
+.button:hover {border-bottom: 3px solid #88baba !important; margin-top: 3px;}
+
+#wave {margin-top: -100px; position: fixed; width: 2000px; z-index: -1;}

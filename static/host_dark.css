@@ -1,4 +1,4 @@
-body {display: flex; flex-direction: column; margin: 0 !important; background: #353838}
+body {display: flex; flex-direction: column; margin: 0 !important; background: #F1F1F1}
 
 html {overflow: hidden}
 
@@ -24,31 +24,30 @@ header a {
     padding-top: 16px;
 }
 
-#login {background: #ADFFF1; border-bottom: 5px solid #88baba; color: #100404}
+.button {background: #ADFFF1; border-bottom: 5px solid #88baba; color: #100404}
 
-#login:hover {border-bottom: 3px solid #88baba; margin-top: 3px;}
+.button:hover {border-bottom: 3px solid #88baba; margin-top: 3px;}
 
 #settings {
     width: max(40vw, 500px);
     height: max(30vw, 375px);
-    background: #353838;
+    background: #ddd;
     margin: 50px 0 0 30vw;
     border-radius: 9px;
     padding: 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border: 7px solid #266e6e;
     font: 500 14px Montserrat;
 }
 
-#title {font: 700 28px Montserrat; text-align: center; color: white}
+#title {font: 700 28px Montserrat; text-align: center; color: black}
 
 .line {text-align: center; margin-top: 10%; display: flex; flex-direction: column}
 
 .line div {display: flex; justify-content: center; border-radius: 6px; margin-bottom: 15px}
 
-.line div {background: #e8ebea}
+.line div {background: white}
 
 .line div:hover {background: #ADFFF1}
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{{ url_for('static', filename='login.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='globals.css') }}" rel="stylesheet"/>
+        <title>All Wrong Answers.</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <meta name="description" content="Log in to All Wrong Answers">
+        <meta name=”robots” content="index, follow">
+        <meta name="keywords" content="game, fun, answers, wrong, allwronganswers">
+        <meta name="google-signin-client_id" content="493342637998-aj77p05tpoi8ke4d1nv8p8ed4pqnfv56.apps.googleusercontent.com">
+        <script>setInterval(function() {Array.prototype.forEach.call(document.getElementsByTagName("span"), x => {if (x.id.toString().includes("connected") || x.id.toString().includes("not_signed")) {x.innerText = "Sign Up With Google"}})}, 1)</script>
+    </head>
+    <body>
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <header>
+            <p>Don't have an account?</p>
+            <a href="/login" class="button">Log In</a>
+        </header>
+        <form id="login" onsubmit="signUp(); return false">
+            <p id="title">Sign Up for All Wrong Answers!</p>
+            <div data-onsuccess="onSignUp" onclick="signedUp" id="gsignin" class="g-login2"></div>
+            <div style="width: 100%; height: 10px; border-bottom: 2px solid white; text-align: center; opacity: 0.4; margin: 20px 0;">
+                <span style="font-size: 20px; background-color: #ddd; padding: 0 4px;"> Or </span>
+            </div>
+            <input type="email" id="email" placeholder="Email address" required><br>
+            <input id="password" placeholder="Password" type="password" required><br>
+            <button id="submit" type="submit" class="button">Sign Up</button>
+            <a href="/reset_password" id="reset">Forgot password?</a>
+        </form>
+        <img src="{{ url_for('static', filename='images/wave.svg') }}" id="wave">
+    </body>
+    <script>
+        let clicked = false
+        function signedUp() {clicked = true}
+        function onSignUp(googleUser) {if (clicked) {location.replace(`/signup_error?email=${googleUser.getBasicProfile().getEmail()}`)}}
+        function signUp() {location.replace(`/signup_error?email=${document.getElementById("email").value}&password=${document.getElementById("password").value}`)}
+        function renderButton() {
+        gapi.signin2.render('gsignin', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSignUp
+          });
+        }
+    </script>
+</html>
