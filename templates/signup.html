@@ -21,10 +21,14 @@
         </header>
         <form id="login" onsubmit="signUp(); return false">
             <p id="title">Sign Up for All Wrong Answers!</p>
-            <div data-onsuccess="onSignUp" onclick="signedUp" id="gsignin" class="g-login2"></div>
+            {% if error == "email_in_use" %}
+                <p class="error">Email already in use</p>
+            {% endif %}
+            <div data-onsuccess="onSignUp" onclick="signedUp()" id="gsignin" class="g-login2"></div>
             <div style="width: 100%; height: 10px; border-bottom: 2px solid white; text-align: center; opacity: 0.4; margin: 20px 0;">
                 <span style="font-size: 20px; background-color: #ddd; padding: 0 4px;"> Or </span>
             </div>
+            <input type="text" id="username" placeholder="Username" required><br>
             <input type="email" id="email" placeholder="Email address" required><br>
             <input id="password" placeholder="Password" type="password" required><br>
             <button id="submit" type="submit" class="button">Sign Up</button>
@@ -35,8 +39,8 @@
     <script>
         let clicked = false
         function signedUp() {clicked = true}
-        function onSignUp(googleUser) {if (clicked) {location.replace(`/signup_error?email=${googleUser.getBasicProfile().getEmail()}`)}}
-        function signUp() {location.replace(`/signup_error?email=${document.getElementById("email").value}&password=${document.getElementById("password").value}`)}
+        function onSignUp(googleUser) {if (clicked) {location.replace(`/signup_error?email=${googleUser.getBasicProfile().getEmail()}&username=${googleUser.getBasicProfile().getName()}&redirect={{ redirect }}`)}}
+        function signUp() {location.replace(`/signup_error?email=${document.getElementById("email").value}&password=${document.getElementById("password").value}&username=${document.getElementById("username").value}&redirect={{ redirect }}`)}
         function renderButton() {
         gapi.signin2.render('gsignin', {
             'scope': 'profile email',

@@ -44,10 +44,10 @@
         function loggedIn() {clicked = true}
         function onLogIn(googleUser) {
             if (clicked) {
-                location.replace(`/login_error?email=${googleUser.getBasicProfile().getEmail()}`)
+                location.replace(`/login_error?email=${googleUser.getBasicProfile().getEmail()}&redirect={{ redirect }}`)
             }
         }
-        function logIn() {location.replace(`/login_error?email=${document.getElementById("email").value}&password=${document.getElementById("password").value}`)}
+        function logIn() {location.replace(`/login_error?email=${document.getElementById("email").value}&password=${document.getElementById("password").value}&redirect={{ redirect }}`)}
         function renderButton() {
         gapi.signin2.render('gsignin', {
             'scope': 'profile email',

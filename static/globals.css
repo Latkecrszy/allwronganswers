@@ -33,4 +33,16 @@ header p {font: 600 20px Montserrat}
 
 .button:hover {border-bottom: 3px solid #88baba !important; margin-top: 3px;}
 
-#wave {margin-top: -100px; position: fixed; width: 2000px; z-index: -1;}
+#wave {
+    margin-top: 400px;
+    position: fixed;
+    width: 2000px;
+    z-index: -1;
+    animation: bottom 1.5s ease-out 0s 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes bottom {
+    from {margin-top: 400px}
+    to {margin-top: -100px}
+}

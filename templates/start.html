@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{{ url_for('static', filename='globals.css') }}" rel="stylesheet"/>
+        <script src="start.js"></script>
+        <title>All Wrong Answers</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <meta name=”robots” content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </head>
+    <body onload="showPlayers({{ id }})">
+        <header>
+            <a href="/login" style="margin-right: -15px">Switch Account</a>
+        </header>
+        <div id="id">Game ID: {{ id }}</div>
+        <div id="players"></div>
+    </body>
+</html>
