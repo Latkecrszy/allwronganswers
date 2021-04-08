@@ -152,7 +152,7 @@ def players():
 
 @app.route("/start")
 def start():
-    return render_template("start.html", id=568295)
+    return render_template("start.html", id=170910)
 
 
 app.register_error_handler(404, lambda e: "no")

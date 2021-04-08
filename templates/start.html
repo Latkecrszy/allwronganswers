@@ -2,8 +2,14 @@
 <html>
     <head>
         <link href="{{ url_for('static', filename='globals.css') }}" rel="stylesheet"/>
-        <script src="start.js"></script>
+        <script src="{{ url_for('static', filename='start.js') }}"></script>
+        <link href="{{ url_for('static', filename='start.css') }}" rel="stylesheet"/>
         <title>All Wrong Answers</title>
+        <!--Make styling for players insert and content. Use flexbox to space out players and wrap around.
+Make button to start game, and show x next to each player on hover.
+When they hover over the player, the x appears. If they click the x, the player gets kicked out.
+Make button appear by having wrapping div that has player name and x.
+When they hover on parent div, x appears and is clickable.-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
@@ -12,9 +18,10 @@
     </head>
     <body onload="showPlayers({{ id }})">
         <header>
-            <a href="/login" style="margin-right: -15px">Switch Account</a>
+            <div id="id">Game ID: {{ id }}</div>
+            <a href="/login">Switch Account</a>
         </header>
-        <div id="id">Game ID: {{ id }}</div>
+
         <div id="players"></div>
     </body>
 </html>

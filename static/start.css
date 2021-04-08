@@ -1,24 +1,29 @@
-Make styling for players insert and content. Use flexbox to space out players and wrap around.
-Make button to start game, and show x next to each player on hover.
-When they hover over the player, the x appears. If they click the x, the player gets kicked out.
-Make button appear by having wrapping div that has player name and x.
-When they hover on parent div, x appears and is clickable.
+body {background: #ADFFF1 !important;}
 
-body {margin: 0 50px}
 #players {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    padding: 0 80px;
+    box-sizing: border-box
 }
 
-#players div {
+.container {
     display: flex;
-    padding: 30px;
+    margin: 40px 20vw 0 0;
 }
 
-#players div p {
+.container p {
     color: black;
-    font: 500 16px Roboto;
+    font: 500 18px Roboto;
+    margin: 1px 10px 0 0;
 }
 
-#players div div {font: 600 20px Roboto}
+.container div {font: 600 22px Roboto;}
+
+#id {
+    font: 600 37px Montserrat;
+    color: #100404;
+    text-align: center;
+    margin: 5px 20vw 0 100px;
+    }
