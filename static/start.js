@@ -18,7 +18,7 @@ async function showPlayers(id) {
                 x.style.opacity = "0"
                 newPlayer.addEventListener("mouseover", () => {x.style.opacity = "1"})
                 newPlayer.addEventListener("mouseout", () => {x.style.opacity = "0"})
-                x.addEventListener("click", () => {await fetch(`https://allwronganswers.com/remove_player?username=${player['info']['username']}&id=${id}&player_id=${player['info']['id']}`)})
+                x.addEventListener("click", async () => {await fetch(`https://allwronganswers.com/remove_player?username=${player['info']['username']}&id=${id}&player_id=${player['info']['id']}`)})
                 newPlayer.appendChild(username)
                 newPlayer.appendChild(x)
                 newPlayer.classList.add("container")
