@@ -13,6 +13,8 @@ body {background: #ADFFF1 !important;}
     margin: 40px 15vw 0 0;
 }
 
+.container:nth-child(4n) {margin-right: 0 !important}
+
 .container p {
     color: black;
     font: 500 18px Roboto;
