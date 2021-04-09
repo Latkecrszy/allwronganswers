@@ -10,10 +10,8 @@ body {background: #ADFFF1 !important;}
 
 .container {
     display: flex;
-    margin: 40px 0 0 20vw;
+    margin: 40px 15vw 0 0;
 }
-
-.container:first-child {margin-left: 40px}
 
 .container p {
     color: black;
