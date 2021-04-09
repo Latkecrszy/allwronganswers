@@ -10,7 +10,7 @@ app = Flask(__name__)
 ph = PasswordHasher()
 dotenv.load_dotenv()
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI', None)
-# cors = CORS(app, resources={r'/db/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]}})
+cors = CORS(app, resources={r'/players/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]}})
 encoder = Fernet(os.environ.get("ENCRYPT_KEY", None).encode())
 mongo = PyMongo(app)
 

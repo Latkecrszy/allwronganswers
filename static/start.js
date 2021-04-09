@@ -15,6 +15,9 @@ async function showPlayers(id) {
                 console.log("doing")
                 username.innerText = player['info']['username']
                 x.innerText = "×"
+                x.style.opacity = "0"
+                newPlayer.addEventListener("hover", () => {x.style.opacity = "1"})
+                //x.addEventListener("click", () => {})
                 newPlayer.appendChild(username)
                 newPlayer.appendChild(x)
                 newPlayer.classList.add("container")
