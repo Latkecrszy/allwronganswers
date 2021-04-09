@@ -122,7 +122,7 @@ def create():
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0}],
                   "question": 1, "id": id}
         games.insert_one(insert)
-        return render_template("start.html", info=insert)
+        return redirect(f'/start?id={id}')
 
 
 @app.route("/answers")
@@ -152,7 +152,7 @@ def players():
 
 @app.route("/start")
 def start():
-    return render_template("start.html", id=170910)
+    return render_template("start.html", id=int(request.args.get('id')))
 
 
 app.register_error_handler(404, lambda e: "no")
