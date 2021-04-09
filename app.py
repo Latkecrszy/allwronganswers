@@ -155,6 +155,22 @@ def start():
     return render_template("start.html", id=int(request.args.get('id')))
 
 
+@app.route("/remove_player", methods=["GET", "POST"])
+def remove_player():
+    games = mongo.db.games
+    game = games.find_one({"id": int(request.args.get("id"))})
+    if game:
+        players = game['players']
+        for player in players:
+            if (request.args.get('username'), int(request.args.get("player_id"))) == (player['username'], int(player['id'])):
+                players.pop(players.index(player))
+                break
+        game['players'] = players
+        games.find_one_and_replace({'id': int(game['id'])}, game)
+        return 200
+    return 500
+
+
 app.register_error_handler(404, lambda e: "no")
 
 if __name__ == "__main__":

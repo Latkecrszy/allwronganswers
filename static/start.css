@@ -21,7 +21,7 @@ body {background: #ADFFF1 !important;}
     margin: 1px 10px 0 0;
 }
 
-.container div {font: 600 22px Roboto;}
+.container div {font: 600 22px Roboto; cursor: pointer;}
 
 #id {
     font: 600 37px Montserrat;
