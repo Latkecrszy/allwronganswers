@@ -45,7 +45,7 @@ def play():
             game = dict(game)
             game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0})
             games.find_one_and_replace({"id": int(game['id'])}, game)
-            return render_template("play.html")
+            return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")))
         return render_template("game_not_found.html")
     else:
         return redirect("/login?redirect=/join")
@@ -114,16 +114,15 @@ def create():
         print(json.loads(base64.b64decode(request.cookies.get('login_info'))))
         login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
         games = mongo.db.games
-        ids = [dict(game)['id'] for game in games.find()]
         id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
-        while id in ids:
+        while id in [dict(game)['id'] for game in games.find()]:
             id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
         insert = {"num_of_qs": request.args.get("questions"), "time_per_q": request.args.get("time"),
                   "answers_per_q": request.args.get("answers"),
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0}],
                   "question": 1, "id": id}
         games.insert_one(insert)
-        return redirect(f'/start?id={id}')
+        return redirect(f'/start?id={id}&player_id={login_info["id"]}')
 
 
 @app.route("/answers")
@@ -153,7 +152,7 @@ def players():
 
 @app.route("/start")
 def start():
-    return render_template("start.html", id=int(request.args.get('id')))
+    return render_template("start.html", id=int(request.args.get('id')), player_id=int(request.args.get("player_id")))
 
 
 @app.route("/remove_player", methods=["GET", "POST"])
@@ -161,20 +160,33 @@ def remove_player():
     games = mongo.db.games
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
-        players = game['players']
-        for player in players:
-            if (request.args.get('username'), int(request.args.get("player_id"))) == (player['info']['username'], int(player['info']['id'])):
-                players.pop(players.index(player))
-                break
-        game['players'] = players
+        game['players'] = [player for player in game['players'] if int(request.args.get("player_id")) != int(player['info']['id'])]
         games.find_one_and_replace({'id': int(game['id'])}, game)
         return 200
     return "no game"
 
 
-@app.route("/testplay")
-def testplay():
-    return render_template("play.html")
+@app.route("/player")
+def player():
+    games = mongo.db.games
+    game = games.find_one({"id": int(request.args.get("id"))})
+    if game:
+        return jsonify([player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0])
+
+
+@app.route("/correct")
+def correct():
+    games = mongo.db.games
+    game = games.find_one({"id": int(request.args.get("id"))})
+    if game:
+        game_player = [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0]
+        game_player['points'] += int(request.args.get("points"))
+        game_player['correct'] += 1
+        game_player['streak'] += 1
+        game_players = [player for player in game['players'] if int(player['info']['id']) != int(request.args.get("player_id"))]
+        game_players.append(game_player)
+        game['players'] = game_players
+        games.find_one_and_replace({"id": game['id']}, dict(game))
 
 
 app.register_error_handler(404, lambda e: "no")

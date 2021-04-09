@@ -37,4 +37,6 @@ body {background: #3eedcf !important; display: flex; flex-direction: column}
     height: 60px;
     width: 125px;
     border: none;
+    border-bottom-color: #07ad39 !important;
+    background: #00fc4c;
     font: 500 18px Roboto}

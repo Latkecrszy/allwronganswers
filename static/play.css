@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;}
 
-#check {height: 200px; width: 200px; margin-top: 17vh}
+#check {height: 200px; width: 200px; margin-top: 12vh}
 
 #wait {
     font: 800 28px Montserrat;
@@ -18,4 +18,16 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;}
+
+#leave {
+    background: #f53d3d;
+    margin: 20px 50px 0 auto;
+    height: 60px;
+    width: 125px;
+    border: none;
+    font: 500 18px Montserrat;
+    border-radius: 8px;
+    border-bottom: 5px solid #ad2d2d;}
+
+#leave:hover {border-bottom: 3px solid #ad2d2d;}
 

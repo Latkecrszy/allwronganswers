@@ -5,7 +5,6 @@ async function showPlayers(id) {
     setInterval(async () => {
         let start_json = await fetch(`https://allwronganswers.com/players?id=${id}`)
         newPlayers = await start_json.json()
-        //newPlayers = [{'info': {'username': 'test'}}, {'info': {'username': 'test123'}}]
         if (JSON.stringify(newPlayers) != JSON.stringify(players)) {
             insert.innerHTML = null
             for (player of newPlayers) {
