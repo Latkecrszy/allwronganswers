@@ -17,11 +17,14 @@ When they hover on parent div, x appears and is clickable.-->
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
     <body onload="showPlayers({{ id }})">
-        <header>
-            <div id="id">Game ID: {{ id }}</div>
-            <a href="/login">Switch Account</a>
-        </header>
+        <div id="pregame">
+            <header>
+                <div id="id">Game ID: {{ id }}</div>
+                <a href="/login">Switch Account</a>
+            </header>
+            <button onclick="start()" id="start" class="button">Start</button>
+            <div id="players"></div>
+        </div>
 
-        <div id="players"></div>
     </body>
 </html>
