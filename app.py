@@ -163,13 +163,13 @@ def remove_player():
     if game:
         players = game['players']
         for player in players:
-            if (request.args.get('username'), int(request.args.get("player_id"))) == (player['username'], int(player['id'])):
+            if (request.args.get('username'), int(request.args.get("player_id"))) == (player['info']['username'], int(player['info']['id'])):
                 players.pop(players.index(player))
                 break
         game['players'] = players
         games.find_one_and_replace({'id': int(game['id'])}, game)
         return 200
-    return 500
+    return "no game"
 
 
 app.register_error_handler(404, lambda e: "no")
