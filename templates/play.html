@@ -2,8 +2,8 @@
 <html>
     <head>
         <link href="{{ url_for('static', filename='globals.css') }}" rel="stylesheet"/>
-        <script src="{{ url_for('static', filename='start.js') }}"></script>
-        <link href="{{ url_for('static', filename='start.css') }}" rel="stylesheet"/>
+        <script src="{{ url_for('static', filename='play.js') }}"></script>
+        <link href="{{ url_for('static', filename='play.css') }}" rel="stylesheet"/>
         <title>All Wrong Answers</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -11,15 +11,13 @@
         <meta name=”robots” content="index, follow">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
-    <body onload="showPlayers({{ id }})">
+    <body>
         <div id="pregame">
             <header>
-                <div id="id">Game ID: {{ id }}</div>
-                <a href="/login">Switch Account</a>
+                    <a href="/login">Switch Account</a>
             </header>
-            <button onclick="start()" id="start" class="button">Start</button>
-            <div id="players"></div>
+            <img src="{{ url_for('static', filename='images/check.png') }}" id="check">
+            <div id="wait">You're in the game! Please wait for the host to start.</div>
         </div>
-
     </body>
 </html>

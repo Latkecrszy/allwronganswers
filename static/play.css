@@ -1,0 +1,21 @@
+body {
+    background: #3eedcf;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;}
+
+#check {height: 200px; width: 200px; margin-top: 17vh}
+
+#wait {
+    font: 800 28px Montserrat;
+    text-align: center;
+    margin-top: 20px
+}
+
+#pregame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;}
+

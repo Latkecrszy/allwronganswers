@@ -172,6 +172,11 @@ def remove_player():
     return "no game"
 
 
+@app.route("/testplay")
+def testplay():
+    return render_template("play.html")
+
+
 app.register_error_handler(404, lambda e: "no")
 
 if __name__ == "__main__":
