@@ -29,6 +29,5 @@ async function showPlayers(id) {
 }
 
 function start() {
-    document.getElementById("pregame").style.display = "none"
-
+    location.replace("/join")
 }
