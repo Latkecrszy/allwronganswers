@@ -5,9 +5,9 @@ async function showPlayers(id) {
     setInterval(async () => {
         let start_json = await fetch(`https://allwronganswers.com/players?id=${id}`)
         newPlayers = await start_json.json()
-        if (JSON.stringify(newPlayers) != JSON.stringify(players)) {
+        if (JSON.stringify(newPlayers) !== JSON.stringify(players)) {
             insert.innerHTML = null
-            for (player of newPlayers) {
+            for (let player of newPlayers) {
                 let newPlayer = document.createElement('div')
                 let username = document.createElement('p')
                 let x = document.createElement('div')
@@ -26,4 +26,9 @@ async function showPlayers(id) {
             players = newPlayers
         }
     }, 100)
+}
+
+function start() {
+    document.getElementById("pregame").style.display = "none"
+
 }

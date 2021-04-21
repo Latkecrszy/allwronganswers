@@ -1,6 +1,6 @@
 from flask import Flask, make_response, jsonify, request, render_template, redirect
 from flask_pymongo import PyMongo
-import json, os, dotenv, base64, re, argon2, random, string, requests
+import json, os, dotenv, base64, re, random, string
 from argon2 import PasswordHasher
 from flask_cors import CORS
 from cryptography.fernet import Fernet
@@ -10,8 +10,10 @@ app = Flask(__name__)
 ph = PasswordHasher()
 dotenv.load_dotenv()
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI', None)
-cors = CORS(app, resources={r'/players/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
-                            r'/remove_player/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]}})
+cors = CORS(app, resources={
+    r'/players/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
+    r'/remove_player/*': {
+        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]}})
 encoder = Fernet(os.environ.get("ENCRYPT_KEY", None).encode())
 mongo = PyMongo(app)
 
@@ -29,9 +31,20 @@ def host():
 
 @app.route("/join")
 def join():
-    if request.cookies.get('login_info'):
-        return render_template("join.html")
-    else:
+    try:
+        print(request.args)
+        if not request.args:
+            return render_template("join.html")
+        login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
+        games = mongo.db.games
+        game = games.find_one({"id": int(request.args.get("id"))})
+        if game:
+            if {'info': login_info, "points": 0, "streak": 0, "correct": 0} not in game['players']:
+                game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0})
+                games.find_one_and_replace({"id": int(game['id'])}, game)
+            return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")))
+        return render_template("game_not_found.html")
+    except:
         return redirect("/login?redirect=/join")
 
 
@@ -43,8 +56,9 @@ def play():
         game = games.find_one({"id": int(request.args.get("id"))})
         if game:
             game = dict(game)
-            game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0})
-            games.find_one_and_replace({"id": int(game['id'])}, game)
+            if {'info': login_info, "points": 0, "streak": 0, "correct": 0} not in game['players']:
+                game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0})
+                games.find_one_and_replace({"id": int(game['id'])}, game)
             return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")))
         return render_template("game_not_found.html")
     else:
@@ -119,27 +133,29 @@ def create():
             id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
         insert = {"num_of_qs": request.args.get("questions"), "time_per_q": request.args.get("time"),
                   "answers_per_q": request.args.get("answers"),
-                  "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0}],
+                  "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0}],
                   "question": 1, "id": id}
         games.insert_one(insert)
-        return redirect(f'/start?id={id}&player_id={login_info["id"]}')
+        return render_template("start.html", id=id, player_id=int(login_info["id"]))
 
 
 @app.route("/answers")
 def answers():
-    """answers_list = json.load(open("answers.json"))
-    print(requests.get("https://opentdb.com/api.php?amount=1").json())
-    for _ in range(100):
-        response = requests.get("https://opentdb.com/api.php?amount=50").json()
-        print(response)
-        for answer in response['results']:
-            if answer['correct_answer'] not in answers_list:
-                answers_list.append(answer['correct_answer'])
-            for i in answer['incorrect_answers']:
-                if i not in answers_list:
-                    answers_list.append(i)
-    json.dump(answers_list, open("answers.json", "w"), indent=4)"""
-    return "done"
+    answers_list = json.load(open("answers.json"))
+    return random.choice(answers_list)
+
+
+@app.route("/questions")
+def questions():
+    questions_list = json.load(open("questions.json"))
+    return [random.choice(questions_list) for _ in range(4)]
+
+
+@app.route("/game")
+def game():
+    games = mongo.db.games
+    game = games.find_one({"id": int(request.args.get("id"))})
+    return jsonify(game)
 
 
 @app.route("/players")
@@ -150,17 +166,13 @@ def players():
     return "invalid id"
 
 
-@app.route("/start")
-def start():
-    return render_template("start.html", id=int(request.args.get('id')), player_id=int(request.args.get("player_id")))
-
-
 @app.route("/remove_player", methods=["GET", "POST"])
 def remove_player():
     games = mongo.db.games
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
-        game['players'] = [player for player in game['players'] if int(request.args.get("player_id")) != int(player['info']['id'])]
+        game['players'] = [player for player in game['players'] if
+                           int(request.args.get("player_id")) != int(player['info']['id'])]
         games.find_one_and_replace({'id': int(game['id'])}, game)
         return 200
     return "no game"
@@ -171,7 +183,9 @@ def player():
     games = mongo.db.games
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
-        return jsonify([player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0])
+        return jsonify(
+            [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][
+                0])
 
 
 @app.route("/correct")
@@ -179,11 +193,13 @@ def correct():
     games = mongo.db.games
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
-        game_player = [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0]
+        game_player = \
+        [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0]
         game_player['points'] += int(request.args.get("points"))
         game_player['correct'] += 1
         game_player['streak'] += 1
-        game_players = [player for player in game['players'] if int(player['info']['id']) != int(request.args.get("player_id"))]
+        game_players = [player for player in game['players'] if
+                        int(player['info']['id']) != int(request.args.get("player_id"))]
         game_players.append(game_player)
         game['players'] = game_players
         games.find_one_and_replace({"id": game['id']}, dict(game))
@@ -193,3 +209,6 @@ app.register_error_handler(404, lambda e: "no")
 
 if __name__ == "__main__":
     app.run(port=5001)
+
+"""Have all the boxes and everything be created, but javascript is just filling in the text for each. 
+They have an id of 0, 1, 2, or 3 which never changes, but the text on top does."""

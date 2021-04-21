@@ -22,7 +22,7 @@
             <a href="/login" style="margin-right: -15px">Switch Account</a>
             <a href="/host" class="button">Host a Game</a>
         </header>
-        <form id="settings" style="padding-top: 50px; height: 350px; min-height: 350px; margin-top: 70px;" onsubmit="location.replace(`/play?id=${document.getElementById('game_id').value}`); return false">
+        <form id="settings" style="padding-top: 50px; height: 350px; min-height: 350px; margin-top: 70px;" onsubmit="location.replace(`/join?id=${document.getElementById('game_id').value}`); return false">
             <div id="title">Join a game of All Wrong Answers!</div>
             <input type="text" id="game_id" placeholder="Game ID">
             <button type="submit" id="create" style="margin-top: 60px; font-family: Montserrat">Join Game</button>
