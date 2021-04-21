@@ -14,18 +14,18 @@ body {background: #3eedcf !important; display: flex; flex-direction: column}
     background: #4d3eed;
     height: 40px;
     border-radius: 10px;
-    padding: 15px 10px 5px 20px
+    padding: 30px 20px 15px 40px
 }
 
 .container:nth-child(4n) {margin-right: 0 !important}
 
 .container p {
-    color: black;
-    font: 500 18px Roboto;
+    color: white;
+    font: 500 20px Montserrat;
     margin: 1px 10px 0 0;
 }
 
-.container div {font: 600 22px Roboto; cursor: pointer;}
+.container div {font: 600 30px Montserrat; cursor: pointer; color: white; margin-top: -4px}
 
 #id {
     font: 600 37px Montserrat;

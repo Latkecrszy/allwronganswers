@@ -136,7 +136,7 @@ def create():
             id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
         insert = {"num_of_qs": request.args.get("questions"), "time_per_q": request.args.get("time"),
                   "answers_per_q": request.args.get("answers"),
-                  "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0}],
+                  "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
                   "question": 1, "id": id}
         games.insert_one(insert)
         return render_template("start.html", id=id, player_id=int(login_info["id"]))
@@ -175,7 +175,7 @@ def remove_player():
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
         game['players'] = [player for player in game['players'] if
-                           int(request.args.get("player_id")) != int(player['info']['id'])]
+                           int(request.args.get("player_id")) != int(player['info']['id']) or 'host' in player]
         games.find_one_and_replace({'id': int(game['id'])}, game)
         return 200
     return "no game"
@@ -186,9 +186,7 @@ def player():
     games = mongo.db.games
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
-        return jsonify(
-            [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][
-                0])
+        return jsonify([player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0])
 
 
 @app.route("/correct")
@@ -196,8 +194,7 @@ def correct():
     games = mongo.db.games
     game = games.find_one({"id": int(request.args.get("id"))})
     if game:
-        game_player = \
-        [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0]
+        game_player = [player for player in game['players'] if int(player['info']['id']) == int(request.args.get("player_id"))][0]
         game_player['points'] += int(request.args.get("points"))
         game_player['correct'] += 1
         game_player['streak'] += 1
