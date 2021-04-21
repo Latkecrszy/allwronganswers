@@ -11,6 +11,9 @@ body {background: #3eedcf !important; display: flex; flex-direction: column}
 .container {
     display: flex;
     margin: 0 15vw 40px 0;
+    background: #4d3eed;
+    height: 40px;
+    border-radius: 10px
 }
 
 .container:nth-child(4n) {margin-right: 0 !important}
