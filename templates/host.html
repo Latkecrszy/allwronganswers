@@ -17,13 +17,19 @@
         <meta property="og:description" content="Host a game of All Wrong Answers!">
         <meta name="description" content="Host a game of All Wrong Answers!">
     </head>
+    <script>
+        async function create() {
+            let id = await fetch(`https://allwronganswers.com/create?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`)
+            return location.replace(`/host?id=${id}`)
+        }
+    </script>
     <body>
         <header>
             <a href="/login" style="margin-right: -15px">Switch Account</a>
             <a href="/join" class="button">Join a Game</a>
         </header>
         <!--<svg id="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="1" d="M0,128L34.3,144C68.6,160,137,192,206,197.3C274.3,203,343,181,411,160C480,139,549,117,617,101.3C685.7,85,754,75,823,85.3C891.4,96,960,128,1029,154.7C1097.1,181,1166,203,1234,208C1302.9,213,1371,203,1406,197.3L1440,192L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>-->
-        <form id="settings" onsubmit="location.replace(`/create?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`); return false">
+        <form id="settings" onsubmit="create(); return false">
             <div id="title">
                 Host a game of All Wrong Answers!
             </div>
@@ -65,8 +71,9 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" id="create">Create Game</button>
+            <button type="button" id="create" onclick="create">Create Game</button>
         </form>
         <img src="{{ url_for('static', filename='images/wave.svg') }}" id="wave">
     </body>
+
 </html>

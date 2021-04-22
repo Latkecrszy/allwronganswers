@@ -11,14 +11,21 @@
         <meta name=”robots” content="index, follow">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
-    <body onload="showPlayers({{ id }})">
-        <div id="pregame">
-            <header>
-                <div id="id">Game ID: {{ id }}</div>
-                <a href="/login">Switch Account</a>
-            </header>
-            <button onclick="start()" id="start" class="button">Start</button>
-            <div id="players"></div>
-        </div>
+    <body>
+        {% if host == "true" %}
+            <script>showPlayers({{ id }})</script>
+            <div id="pregame">
+                <header>
+                    <div id="id">Game ID: {{ id }}</div>
+                    <a href="/login">Switch Account</a>
+                </header>
+                <button onclick="start()" id="start" class="button">Start</button>
+                <div id="players"></div>
+            </div>
+        {% else %}
+            <button onclick="leave({{ id }}, {{ player_id }})" id="leave">Leave</button>
+            <img src="{{ url_for('static', filename='images/check.gif') }}" id="check">
+            <div id="wait">You're in the game! Please wait for the host to start.</div>
+        {% endif %}
     </body>
 </html>

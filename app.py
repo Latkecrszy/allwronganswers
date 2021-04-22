@@ -27,6 +27,10 @@ mongo = PyMongo(app)
 @app.route("/host")
 def host():
     if request.cookies.get('login_info'):
+        login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
+        if request.args.get("id"):
+            return render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
+                                   host="true")
         return render_template("host.html")
     else:
         return redirect("/login?redirect=/host")
@@ -45,7 +49,8 @@ def join():
             if {'info': login_info, "points": 0, "streak": 0, "correct": 0} not in game['players']:
                 game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0})
                 games.find_one_and_replace({"id": int(game['id'])}, game)
-            return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")))
+            return render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
+                                   host="false")
         return render_template("game_not_found.html")
     except:
         return redirect("/login?redirect=/join")
@@ -125,7 +130,7 @@ def login_error():
     return response
 
 
-@app.route("/create")
+@app.route("/create", methods=["POST", "GET"])
 def create():
     if request.cookies.get("login_info"):
         print(json.loads(base64.b64decode(request.cookies.get('login_info'))))
@@ -139,7 +144,8 @@ def create():
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
                   "question": 1, "id": id}
         games.insert_one(insert)
-        return render_template("start.html", id=id, player_id=int(login_info["id"]))
+        return id
+
 
 
 @app.route("/answers")
@@ -203,6 +209,14 @@ def correct():
         game_players.append(game_player)
         game['players'] = game_players
         games.find_one_and_replace({"id": game['id']}, dict(game))
+
+
+
+@app.route("/deleteall")
+def deleteall():
+    for document in mongo.db.games.find():
+        mongo.db.games.find_one_and_delete(dict(document))
+    return 'done'
 
 
 app.register_error_handler(404, lambda e: "no")
