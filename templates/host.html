@@ -17,13 +17,15 @@
         <meta property="og:description" content="Host a game of All Wrong Answers!">
         <meta name="description" content="Host a game of All Wrong Answers!">
     </head>
+
+    <body>
     <script>
-        async function create() {
+        async function create_game() {
+            console.log("triggered")
             let id = await fetch(`https://allwronganswers.com/create?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`)
             return location.replace(`/host?id=${id}`)
         }
     </script>
-    <body>
         <header>
             <a href="/login" style="margin-right: -15px">Switch Account</a>
             <a href="/join" class="button">Join a Game</a>
@@ -71,7 +73,7 @@
                     </select>
                 </div>
             </div>
-            <button type="button" id="create" onclick="create">Create Game</button>
+            <button type="button" id="create" onclick="create_game()">Create Game</button>
         </form>
         <img src="{{ url_for('static', filename='images/wave.svg') }}" id="wave">
     </body>

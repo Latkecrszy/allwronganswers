@@ -144,7 +144,9 @@ def create():
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
                   "question": 1, "id": id}
         games.insert_one(insert)
-        return id
+        print(id)
+        print(jsonify(id))
+        return jsonify(id)
 
 
 
