@@ -23,7 +23,9 @@
         async function create_game() {
             console.log("triggered")
             let id = await fetch(`https://allwronganswers.com/create?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`)
-            return location.replace(`/host?id=${id}`)
+            console.log(id)
+            console.log(parseInt(id))
+            //return location.replace(`/host?id=${id}`)
         }
     </script>
         <header>

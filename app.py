@@ -146,7 +146,7 @@ def create():
         games.insert_one(insert)
         print(id)
         print(jsonify(id))
-        return jsonify(id)
+        return jsonify({"id": id})
 
 
 
