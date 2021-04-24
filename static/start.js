@@ -2,6 +2,7 @@ async function showPlayers(id) {
     let players;
     let newPlayers;
     let insert = document.getElementById("players")
+    console.log(insert)
     setInterval(async () => {
         let start_json = await fetch(`https://allwronganswers.com/players?id=${id}`)
         newPlayers = await start_json.json()
@@ -28,11 +29,22 @@ async function showPlayers(id) {
     }, 100)
 }
 
-function start() {
-
+function start(id) {
+    location.replace(`/play?id=${id}&host=true`)
 }
 
 async function leave(id, player_id) {
     await fetch(`https://allwronganswers.com/remove_player?id=${id}&player_id=${player_id}`)
     location.replace("/join")
+}
+
+
+async function awaitStart(id) {
+    setInterval(async () => {
+        let started = await fetch(`https://allwronganswers.com/started?id=${id}`)
+        started = await started.json()
+        if (started['started'] === 'true') {
+            location.replace(`/play?id=${id}&host=false`)
+        }
+    })
 }

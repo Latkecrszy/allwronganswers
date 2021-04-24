@@ -58,19 +58,15 @@ def join():
 
 @app.route("/play")
 def play():
-    if request.cookies.get('login_info'):
-        login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
-        games = mongo.db.games
-        game = games.find_one({"id": int(request.args.get("id"))})
-        if game:
-            game = dict(game)
-            if {'info': login_info, "points": 0, "streak": 0, "correct": 0} not in game['players']:
-                game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0})
-                games.find_one_and_replace({"id": int(game['id'])}, game)
-            return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")))
-        return render_template("game_not_found.html")
-    else:
-        return redirect("/login?redirect=/join")
+    login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
+    mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"started": "true"})
+    return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")),
+                           host=request.args.get("host"))
+
+
+@app.route("/started")
+def started():
+    return jsonify({"started": mongo.db.games.find_one({"id": int(request.args.get("id"))})['started']})
 
 
 @app.route("/login")

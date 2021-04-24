@@ -13,7 +13,6 @@
     </head>
     <body>
         {% if host == "true" %}
-            <script>showPlayers({{ id }})</script>
             <div id="pregame">
                 <header>
                     <div id="id">Game ID: {{ id }}</div>
@@ -22,10 +21,12 @@
                 <button onclick="start()" id="start" class="button">Start</button>
                 <div id="players"></div>
             </div>
+            <script>showPlayers({{ id }})</script>
         {% else %}
             <button onclick="leave({{ id }}, {{ player_id }})" id="leave">Leave</button>
             <img src="{{ url_for('static', filename='images/check.gif') }}" id="check">
             <div id="wait">You're in the game! Please wait for the host to start.</div>
+            <script>awaitStart({{ id }})</script>
         {% endif %}
     </body>
 </html>
