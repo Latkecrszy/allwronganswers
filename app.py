@@ -61,6 +61,7 @@ def play():
 
 @app.route("/started")
 def started():
+    print({"started": mongo.db.games.find_one({"id": int(request.args.get("id"))})['started']})
     return jsonify({"started": mongo.db.games.find_one({"id": int(request.args.get("id"))})['started']})
 
 
@@ -133,7 +134,7 @@ def create():
         insert = {"num_of_qs": request.args.get("questions"), "time_per_q": request.args.get("time"),
                   "answers_per_q": request.args.get("answers"),
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
-                  "question": 1, "id": id}
+                  "question": 1, "id": id, 'started': 'false'}
         games.insert_one(insert)
         print(id)
         print(jsonify(id))
