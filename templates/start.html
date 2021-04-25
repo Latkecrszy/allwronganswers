@@ -18,7 +18,7 @@
                     <div id="id">Game ID: {{ id }}</div>
                     <a href="/login">Switch Account</a>
                 </header>
-                <button onclick="start()" id="start" class="button">Start</button>
+                <button onclick="start({{ id }})" id="start" class="button">Start</button>
                 <div id="players"></div>
             </div>
             <script>showPlayers({{ id }})</script>
