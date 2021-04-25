@@ -46,5 +46,5 @@ async function awaitStart(id) {
         if (started['started'] === 'true') {
             location.replace(`/play?id=${id}&host=false`)
         }
-    })
+    }, 500)
 }
