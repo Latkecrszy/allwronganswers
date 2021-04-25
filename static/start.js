@@ -41,7 +41,7 @@ async function leave(id, player_id) {
 
 async function awaitStart(id) {
     setInterval(async () => {
-        let started = await fetch(`https://allwrongamswers.com/started?id=${id}`)
+        let started = await fetch(`https://allwronganswers.com/started?id=${id}`)
         started = await started.json()
         console.log(started)
         if (started['started'] === 'true') {
