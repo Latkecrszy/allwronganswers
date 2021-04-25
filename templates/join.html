@@ -17,15 +17,21 @@
         <meta property="og:description" content="Join a game of All Wrong Answers!">
         <meta name="description" content="Join a game of All Wrong Answers!">
     </head>
+    <script>
+        async function join() {
+            await fetch(`https://allwronganswers.com/add_player?id=${document.getElementById("game_id").value}`)
+            location.replace(`/join?id=${document.getElementById('game_id').value}`)
+        }
+    </script>
     <body>
         <header>
             <a href="/login" style="margin-right: -15px">Switch Account</a>
             <a href="/host" class="button">Host a Game</a>
         </header>
-        <form id="settings" style="padding-top: 50px; height: 350px; min-height: 350px; margin-top: 70px;" onsubmit="location.replace(`/join?id=${document.getElementById('game_id').value}`); return false">
+        <form id="settings" style="padding-top: 50px; height: 350px; min-height: 350px; margin-top: 70px;">
             <div id="title">Join a game of All Wrong Answers!</div>
             <input type="text" id="game_id" placeholder="Game ID">
-            <button type="submit" id="create" style="margin-top: 60px; font-family: Montserrat">Join Game</button>
+            <button type="button" onclick="join()" id="create" style="margin-top: 60px; font-family: Montserrat">Join Game</button>
         </form>
         <img src="{{ url_for('static', filename='images/wave2.svg') }}" id="wave">
     </body>

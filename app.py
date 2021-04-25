@@ -39,18 +39,11 @@ def host():
 @app.route("/join")
 def join():
     try:
-        print(request.args)
         if not request.args:
             return render_template("join.html")
         login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
-        games = mongo.db.games
-        game = games.find_one({"id": int(request.args.get("id"))})
-        if game:
-            if {'info': login_info, "points": 0, "streak": 0, "correct": 0} not in game['players']:
-                game['players'].append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0})
-                games.find_one_and_replace({"id": int(game['id'])}, game)
-            return render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
-                                   host="false")
+        if mongo.db.games.find_one({"id": int(request.args.get("id"))}):
+            return render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]), host="false")
         return render_template("game_not_found.html")
     except:
         return redirect("/login?redirect=/join")
@@ -59,7 +52,7 @@ def join():
 @app.route("/play")
 def play():
     login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
-    mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"started": "true"})
+    mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"started": "true"}})
     return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")),
                            host=request.args.get("host"))
 
@@ -144,6 +137,14 @@ def create():
         print(jsonify(id))
         return jsonify({"id": id})
 
+
+@app.route("/add_player")
+def add_player():
+    login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
+    game_players = mongo.db.games.find_one({"id": int(request.args.get("id"))})['players']
+    game_players.append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
+    mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"players": game_players}})
+    return jsonify({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
 
 
 @app.route("/answers")
