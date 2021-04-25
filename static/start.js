@@ -42,8 +42,8 @@ async function leave(id, player_id) {
 async function awaitStart(id) {
     setInterval(async () => {
         let started = await fetch(`http://localhost:5001/started?id=${id}`)
-        console.log(started)
         started = await started.json()
+        console.log(started)
         if (started['started'] === 'true') {
             location.replace(`/play?id=${id}&host=false`)
         }
