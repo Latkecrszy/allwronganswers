@@ -15,6 +15,8 @@ cors = CORS(app, resources={
     r'/remove_player/*': {
         "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
     r'/create/*': {
+        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
+    r'/started/*': {
         "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]}
 })
 encoder = Fernet(os.environ.get("ENCRYPT_KEY", None).encode())
