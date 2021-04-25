@@ -22,7 +22,7 @@
     <script>
         async function create_game() {
             console.log("triggered")
-            let id = await fetch(`http://localhost:5001/create?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`)
+            let id = await fetch(`https://allwronganswers.com/create?questions=${document.getElementById('questions').value}&time=${document.getElementById('time').value}&answers=${document.getElementById('answers').value}`)
             id = await id.json()
             console.log(id['id'])
             console.log(parseInt(id['id']))

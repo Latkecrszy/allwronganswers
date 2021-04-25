@@ -55,8 +55,7 @@ def join():
 def play():
     login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
     mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"started": "true"}})
-    return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")),
-                           host=request.args.get("host"))
+    return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")), host=request.args.get("host"))
 
 
 @app.route("/started")
