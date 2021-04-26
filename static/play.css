@@ -1,10 +1,11 @@
 #questions {
     display: flex;
-    width: 85vw;
+    width: 80vw;
     height: 90vh;
     flex-wrap: wrap;
     justify-content: space-between;
     justify-items: center;
+    margin-left: 10vw;
 }
 
 .question {
@@ -13,6 +14,7 @@
     padding: 40px;
     font: 500 30px Montserrat;
     text-align: center;
+    border-radius: 8px;
 }
 
 #question_1 {background: #7920e6}
