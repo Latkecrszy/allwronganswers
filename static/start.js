@@ -21,7 +21,7 @@ async function showPlayers(id) {
                 newPlayer.appendChild(username)
                 newPlayer.appendChild(x)
                 newPlayer.classList.add("container")
-                if (player['host'] === 'true') {newPlayer.style.backgroundColor = "#6bffc6"}
+                if (player['host'] === 'true') {newPlayer.style.backgroundColor = "#0026ff"}
                 insert.appendChild(newPlayer)
             }
             players = newPlayers
