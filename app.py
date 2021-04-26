@@ -11,15 +11,15 @@ ph = PasswordHasher()
 dotenv.load_dotenv()
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI', None)
 cors = CORS(app, resources={
-    r'/players/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
+    r'/players/*': {"origins": ["https://allwronganswers.com", "http://127.0.0.1:5001", "http://localhost:5001"]},
     r'/remove_player/*': {
-        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
+        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5001", "http://localhost:5001"]},
     r'/create/*': {
-        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
+        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5001", "http://localhost:5001"]},
     r'/started/*': {
-        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]},
+        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5001", "http://localhost:5001"]},
     r'/*': {
-        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5000", "http://localhost:5001"]}
+        "origins": ["https://allwronganswers.com", "http://127.0.0.1:5001", "http://localhost:5001"]}
 })
 encoder = Fernet(os.environ.get("ENCRYPT_KEY", None).encode())
 mongo = PyMongo(app)
