@@ -31,8 +31,10 @@ def host():
     if request.cookies.get('login_info'):
         login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
         if request.args.get("id"):
-            return render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
+            response = render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
                                    host="true")
+            response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
+            return response
         return render_template("host.html")
     else:
         return redirect("/login?redirect=/host")
@@ -55,12 +57,13 @@ def join():
 def play():
     login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
     mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"started": "true"}})
-    return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")), host=request.args.get("host"))
+    print(json.loads(request.cookies.get("host")))
+    return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")),
+                           host=json.loads(request.cookies.get("host")))
 
 
 @app.route("/started")
 def started():
-    print({"started": mongo.db.games.find_one({"id": int(request.args.get("id"))})['started']})
     return jsonify({"started": mongo.db.games.find_one({"id": int(request.args.get("id"))})['started']})
 
 
@@ -135,8 +138,6 @@ def create():
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
                   "question": 1, "id": id, 'started': 'false'}
         games.insert_one(insert)
-        print(id)
-        print(jsonify(id))
         return jsonify({"id": id})
 
 
@@ -146,7 +147,9 @@ def add_player():
     game_players = mongo.db.games.find_one({"id": int(request.args.get("id"))})['players']
     game_players.append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
     mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"players": game_players}})
-    return jsonify({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
+    response = jsonify({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
+    response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
+    return response
 
 
 @app.route("/answers")
