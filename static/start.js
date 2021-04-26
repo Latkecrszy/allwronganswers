@@ -15,13 +15,15 @@ async function showPlayers(id) {
                 username.innerText = player['info']['username']
                 x.innerText = "×"
                 x.style.opacity = "0"
-                newPlayer.addEventListener("mouseover", () => {x.style.opacity = "1"})
                 newPlayer.addEventListener("mouseout", () => {x.style.opacity = "0"})
-                x.addEventListener("click", async () => {await fetch(`https://allwronganswers.com/remove_player?username=${player['info']['username']}&id=${id}&player_id=${player['info']['id']}`)})
                 newPlayer.appendChild(username)
                 newPlayer.appendChild(x)
                 newPlayer.classList.add("container")
                 if (player['host'] === 'true') {newPlayer.style.backgroundColor = "#0026ff"}
+                else {
+                        newPlayer.addEventListener("mouseover", () => {x.style.opacity = "1"})
+                        x.addEventListener("click", async () => {await fetch(`https://allwronganswers.com/remove_player?username=${player['info']['username']}&id=${id}&player_id=${player['info']['id']}`)})
+                }
                 insert.appendChild(newPlayer)
             }
             players = newPlayers

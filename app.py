@@ -59,9 +59,12 @@ def join():
 def play():
     login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
     mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"started": "true"}})
-    print(json.loads(request.cookies.get("host")))
+    game = mongo.db.games.find_one({"id": int(request.args.get("id"))})
     return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")),
-                           host=json.loads(request.cookies.get("host")))
+                           host=json.loads(request.cookies.get("host")), question_num=int(game['question']),
+                           time=int(game['time_per_q']), num_of_questions=int(game['num_of_qs']),
+                           question=game['questions'][int(game['question'])]['question'],
+                           answers=game['questions'][int(game['question'])]['answers'])
 
 
 @app.route("/started")
@@ -135,10 +138,12 @@ def create():
         id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
         while id in [dict(game)['id'] for game in games.find()]:
             id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
+        questions = {x: {"question": random.choice(json.load(open("questions.json"))), "answers": [random.choice(json.load(open("answers.json"))) for _ in range(int(request.args.get("answers")))]} for x in range(1, int(request.args.get("questions"))+1)}
         insert = {"num_of_qs": request.args.get("questions"), "time_per_q": request.args.get("time"),
                   "answers_per_q": request.args.get("answers"),
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
-                  "question": 1, "id": id, 'started': 'false'}
+                  "question": 1, "id": id, 'started': 'false',
+                  'questions': questions}
         games.insert_one(insert)
         response = make_response(jsonify({"id": id}))
         response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
@@ -158,14 +163,12 @@ def add_player():
 
 @app.route("/answers")
 def answers():
-    answers_list = json.load(open("answers.json"))
-    return random.choice(answers_list)
+    return jsonify([random.choice(json.load(open("answers.json"))) for _ in range(4)])
 
 
 @app.route("/questions")
-def questions():
-    questions_list = json.load(open("questions.json"))
-    return [random.choice(questions_list) for _ in range(4)]
+def question():
+    return jsonify(random.choice(json.load(open("questions.json"))))
 
 
 @app.route("/game")

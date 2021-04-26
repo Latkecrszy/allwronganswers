@@ -11,10 +11,25 @@
         <meta name=”robots” content="index, follow">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
-    <body>
+    <body onload="render_info({{ answers }})">
+        <header>
+            <p id="game_id">{{ id }}</p>
+            <p id="question">{{ question }}</p>
+        </header>
+        <div id="questions">
+            <div id="1"></div>
+            <div id="2"></div>
+            <div id="3"></div>
+            <div id="4"></div>
+        </div>
+        <div id="leaderboard">
+            {% if host == "true" %}
+                <button id="next" onclick="nextQuestion()">Next</button>
+            {% endif %}
+            <div id="scores"></div>
+            <div id="chat"></div>
+        </div>
 
+        <div id="points"></div>
     </body>
-    <script>
-        console.log("{{ host }}")
-    </script>
 </html>

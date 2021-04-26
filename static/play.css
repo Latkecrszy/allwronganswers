@@ -1,0 +1,27 @@
+#questions {
+    display: flex;
+    width: 85vw;
+    height: 90vh;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+#1, #2, #3, #4 {
+    width: 30vw;
+    height: 25vh;
+    padding: 40px;
+    font: 500 30px Montserrat;
+    text-align: center;
+}
+
+#1 {background: #7920e6}
+#1:hover {background: #5b18ad}
+#2 {background: #a4e620}
+#2:hover {background: #85ba1a}
+#3 {background: #fc23f5}
+#3:hover {background: #c41abf}
+#4 {background: #0026ff}
+#4:hover {background: #001ecc}
+
+#leaderboard {display: none}

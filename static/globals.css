@@ -25,13 +25,13 @@ header a {
 header p {font: 600 20px Montserrat}
 
 .button {
-    background: #ADFFF1;
-    border-bottom: 5px solid #88baba !important;
+    background: #3eedcf;
+    border-bottom: 5px solid #2ea692 !important;
     color: #100404;
     border-radius: 8px;
 }
 
-.button:hover {border-bottom: 3px solid #88baba !important; margin-top: 3px;}
+.button:hover {border-bottom: 3px solid #2ea692 !important; margin-top: 3px;}
 
 #wave {
     margin-top: 400px;
