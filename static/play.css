@@ -10,11 +10,12 @@
 
 .question {
     width: 30vw;
-    height: 25vh;
+    height: 25%;
     padding: 40px;
     font: 500 30px Montserrat;
     text-align: center;
     border-radius: 8px;
+    margin-top: 40px;
 }
 
 #question_1 {background: #7920e6}
