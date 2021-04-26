@@ -148,7 +148,7 @@ def add_player():
     game_players.append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
     mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"players": game_players}})
     response = make_response(jsonify({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'}))
-    response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
+    response.set_cookie('host', str.encode(json.dumps("false")), max_age=172800)
     return response
 
 
