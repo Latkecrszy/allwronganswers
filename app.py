@@ -140,7 +140,9 @@ def create():
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
                   "question": 1, "id": id, 'started': 'false'}
         games.insert_one(insert)
-        return jsonify({"id": id})
+        response = make_response(jsonify({"id": id}))
+        response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
+        return response
 
 
 @app.route("/add_player")
