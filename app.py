@@ -63,8 +63,8 @@ def play():
     return render_template("play.html", player_id=int(login_info['id']), id=int(request.args.get("id")),
                            host=json.loads(request.cookies.get("host")), question_num=int(game['question']),
                            time=int(game['time_per_q']), num_of_questions=int(game['num_of_qs']),
-                           question=game['questions'][int(game['question'])]['question'],
-                           answers=game['questions'][int(game['question'])]['answers'])
+                           question=game['questions'][str(game['question'])]['question'],
+                           answers=game['questions'][str(game['question'])]['answers'])
 
 
 @app.route("/started")
@@ -138,7 +138,7 @@ def create():
         id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
         while id in [dict(game)['id'] for game in games.find()]:
             id = int("".join([str(random.randint(0, 9)) for _ in range(6)]))
-        questions = {x: {"question": random.choice(json.load(open("questions.json"))), "answers": [random.choice(json.load(open("answers.json"))) for _ in range(int(request.args.get("answers")))]} for x in range(1, int(request.args.get("questions"))+1)}
+        questions = {str(x): {"question": random.choice(json.load(open("questions.json"))), "answers": [random.choice(json.load(open("answers.json"))) for _ in range(int(request.args.get("answers")))]} for x in range(1, int(request.args.get("questions"))+1)}
         insert = {"num_of_qs": request.args.get("questions"), "time_per_q": request.args.get("time"),
                   "answers_per_q": request.args.get("answers"),
                   "players": [{'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'true'}],
