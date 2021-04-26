@@ -12,7 +12,6 @@ async function showPlayers(id) {
                 let newPlayer = document.createElement('div')
                 let username = document.createElement('p')
                 let x = document.createElement('div')
-                console.log("doing")
                 username.innerText = player['info']['username']
                 x.innerText = "×"
                 x.style.opacity = "0"
@@ -22,6 +21,7 @@ async function showPlayers(id) {
                 newPlayer.appendChild(username)
                 newPlayer.appendChild(x)
                 newPlayer.classList.add("container")
+                if (player['host'] === 'true') {newPlayer.style.backgroundColor = "#00d5ff"}
                 insert.appendChild(newPlayer)
             }
             players = newPlayers
@@ -29,9 +29,8 @@ async function showPlayers(id) {
     }, 100)
 }
 
-function start(id) {
-    location.replace(`/play?id=${id}`)
-}
+function start(id) {location.replace(`/play?id=${id}`)}
+
 
 async function leave(id, player_id) {
     await fetch(`https://allwronganswers.com/remove_player?id=${id}&player_id=${player_id}`)
@@ -43,7 +42,6 @@ async function awaitStart(id) {
     setInterval(async () => {
         let started = await fetch(`https://allwronganswers.com/started?id=${id}`)
         started = await started.json()
-        console.log(started)
         if (started['started'] === 'true') {
             location.replace(`/play?id=${id}`)
         }
