@@ -30,7 +30,7 @@ async function showPlayers(id) {
 }
 
 function start(id) {
-    location.replace(`/play?id=${id}&host=true`)
+    location.replace(`/play?id=${id}`)
 }
 
 async function leave(id, player_id) {
@@ -45,7 +45,7 @@ async function awaitStart(id) {
         started = await started.json()
         console.log(started)
         if (started['started'] === 'true') {
-            location.replace(`/play?id=${id}&host=false`)
+            location.replace(`/play?id=${id}`)
         }
     }, 500)
 }
