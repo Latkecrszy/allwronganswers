@@ -31,8 +31,8 @@ def host():
     if request.cookies.get('login_info'):
         login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
         if request.args.get("id"):
-            response = render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
-                                   host="true")
+            response = make_response(render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]),
+                                   host="true"))
             response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
             return response
         return render_template("host.html")
@@ -147,7 +147,7 @@ def add_player():
     game_players = mongo.db.games.find_one({"id": int(request.args.get("id"))})['players']
     game_players.append({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
     mongo.db.games.find_one_and_update({"id": int(request.args.get("id"))}, {"$set": {"players": game_players}})
-    response = jsonify({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'})
+    response = make_response(jsonify({'info': login_info, "points": 0, "streak": 0, "correct": 0, 'answer': 0, 'host': 'false'}))
     response.set_cookie('host', str.encode(json.dumps("true")), max_age=172800)
     return response
 
