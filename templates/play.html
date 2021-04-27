@@ -12,24 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </head>
     <body onload="renderInfo({{ answers }})">
-        <header>
-            <p id="game_id">{{ id }}</p>
-            <p id="question">{{ question }}</p>
-        </header>
-        <div id="answers">
-            <div id="answer_1" class="answer"></div>
-            <div id="answer_2" class="answer"></div>
-            <div id="answer_3" class="answer"></div>
-            <div id="answer_4" class="answer"></div>
-        </div>
-        <div id="leaderboard">
-            {% if host == "true" %}
-                <button id="next" onclick="nextQuestion()">Next</button>
-            {% endif %}
-            <div id="scores"></div>
-            <div id="chat"></div>
-        </div>
 
-        <div id="points"></div>
     </body>
 </html>
