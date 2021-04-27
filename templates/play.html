@@ -14,13 +14,13 @@
     <body onload="renderInfo({{ answers }})">
         <header>
             <p id="game_id">{{ id }}</p>
-            <p id="question">{{ question }}</p>
+            <p id="answer">{{ question }}</p>
         </header>
-        <div id="questions">
-            <div id="question_1" class="question"></div>
-            <div id="question_2" class="question"></div>
-            <div id="question_3" class="question"></div>
-            <div id="question_4" class="question"></div>
+        <div id="answers">
+            <div id="answer_1" class="answer"></div>
+            <div id="answer_2" class="answer"></div>
+            <div id="answer_3" class="answer"></div>
+            <div id="answer_4" class="answer"></div>
         </div>
         <div id="leaderboard">
             {% if host == "true" %}

@@ -1,4 +1,4 @@
-#questions {
+#answers {
     display: flex;
     width: 80vw;
     height: 90vh;
@@ -8,9 +8,9 @@
     margin-left: 10vw;
 }
 
-.question {
+.answer {
     width: 30vw;
-    height: 25%;
+    height: 20%;
     padding: 40px;
     font: 500 30px Montserrat;
     text-align: center;
@@ -18,13 +18,13 @@
     margin-top: 40px;
 }
 
-#question_1 {background: #7920e6}
-#question_1:hover {background: #5b18ad}
-#question_2 {background: #a4e620}
-#question_2:hover {background: #85ba1a}
-#question_3 {background: #fc23f5}
-#question_3:hover {background: #c41abf}
-#question_4 {background: #0026ff}
-#question_4:hover {background: #001ecc}
+#answer_1 {background: #7920e6}
+#answer_1:hover {background: #5b18ad}
+#answer_2 {background: #a4e620}
+#answer_2:hover {background: #85ba1a}
+#answer_3 {background: #fc23f5}
+#answer_3:hover {background: #c41abf}
+#answer_4 {background: #0026ff}
+#answer_4:hover {background: #001ecc}
 
 #leaderboard {display: none}
