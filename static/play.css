@@ -34,4 +34,4 @@ header {display: flex;}
 
 #game_id {margin: 10px auto 0 30px; font-size: 28px;}
 
-#question {margin: 0 auto 0 250px}
+#question {margin: 0 auto 0 25vw; font-size: 30px}
