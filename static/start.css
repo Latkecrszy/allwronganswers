@@ -78,3 +78,5 @@ body {
     border-bottom: 5px solid #ad2d2d;}
 
 #leave:hover {border-bottom: 3px solid #ad2d2d;}
+
+header {height: 100px}

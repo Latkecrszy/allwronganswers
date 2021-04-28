@@ -25,9 +25,6 @@ encoder = Fernet(os.environ.get("ENCRYPT_KEY", None).encode())
 mongo = PyMongo(app)
 
 
-# Color scheme: #fc9003, #FFFFFF
-
-
 @app.route("/host")
 def host():
     if request.cookies.get('login_info'):
@@ -50,7 +47,7 @@ def join():
         login_info = json.loads(base64.b64decode(request.cookies.get('login_info')))
         if mongo.db.games.find_one({"id": int(request.args.get("id"))}):
             return render_template("start.html", id=int(request.args.get("id")), player_id=int(login_info["id"]), host="false")
-        return render_template("game_not_found.html")
+        return redirect("/game_not_found")
     except:
         return redirect("/login?redirect=/join")
 

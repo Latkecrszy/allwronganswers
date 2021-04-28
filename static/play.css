@@ -19,19 +19,29 @@
     margin-top: 40px;
 }
 
-#answer_1 {background: #7920e6}
-#answer_1:hover {background: #5b18ad}
-#answer_2 {background: #a4e620}
-#answer_2:hover {background: #85ba1a}
-#answer_3 {background: #fc23f5}
-#answer_3:hover {background: #c41abf}
-#answer_4 {background: #0026ff}
-#answer_4:hover {background: #001ecc}
+#answer_1 {background: #36C76A}
+#answer_1:hover, #answer_1.selected {background: #00a83c}
+#answer_2 {background: #C7B336}
+#answer_2:hover, #answer_2.selected {background: #ab9200}
+#answer_3 {background: #C73693}
+#answer_3:hover, #answer_3.selected {background: #a8006b}
+#answer_4 {background: #364ac7}
+#answer_4:hover, #answer_4.selected {background: #2e3fa6}
 
 #leaderboard {display: none}
 
-header {display: flex;}
+header {display: flex; min-height: 100px; max-height: 300px; text-align: center; padding-right: 20px}
 
-#game_id {margin: 10px auto 0 30px; font-size: 28px;}
+#game_id {margin: 10px 0 0 30px; font-size: 28px;}
 
-#question {margin: 10px auto 0 5vw; font-size: 30px}
+#question {margin: 5px auto 15px 10vw; font-size: 35px;}
+/*Check to make sure header on other pages is not broken*/
+
+body, html {background: #3eedcf}
+
+.vertical {
+    border-left: 3px solid gray;
+    margin: -10px 0 10px 75px;
+    opacity: 0.4;
+    align-self: stretch;
+}

@@ -5,7 +5,6 @@ a, div, p {color: #100404; text-decoration: none;}
 a, button {cursor: pointer}
 
 header {
-    height: 100px;
     padding-top: 22px;
     background: #F1F1F1;
     width: 100vw;

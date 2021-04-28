@@ -4,8 +4,10 @@ async function renderInfo(answers) {
         let i = document.getElementById("answer_"+x.toString())
         console.log("question_"+x.toString())
         console.log(i)
-        i.innerText = answers[x-1]
-        i.addEventListener("click", () => {i.classList.add("selected")})
+        i.children[0].innerText = answers[x-1]
+        i.addEventListener("click", () => {
+            i.classList.add("selected")
+        })
     }
 }
 
