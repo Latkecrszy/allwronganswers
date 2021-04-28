@@ -233,6 +233,3 @@ app.register_error_handler(404, lambda e: "no")
 
 if __name__ == "__main__":
     app.run(port=5001)
-
-"""Have all the boxes and everything be created, but javascript is just filling in the text for each. 
-They have an id of 0, 1, 2, or 3 which never changes, but the text on top does."""
